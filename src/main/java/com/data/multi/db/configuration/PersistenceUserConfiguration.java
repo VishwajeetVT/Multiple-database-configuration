@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 
 @Configuration
-@PropertySource("classpath:multiple-database-config.properties")
+@PropertySource({"classpath:multiple-database-config.properties"})
 @EnableJpaRepositories(
         basePackages = "com.data.multi.db.entity",
         entityManagerFactoryRef = "userEntityManager",
