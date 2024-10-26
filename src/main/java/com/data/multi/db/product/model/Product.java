@@ -1,4 +1,4 @@
-package com.data.multi.db.entity;
+package com.data.multi.db.product.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,10 +9,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(schema = "products")
+@Table(name = "\"Product\"", schema = "\"products\"")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private long productId;
     private String productName;
     private double price;
