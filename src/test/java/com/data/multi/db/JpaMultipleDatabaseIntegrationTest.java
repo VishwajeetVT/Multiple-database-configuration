@@ -27,8 +27,8 @@ public class JpaMultipleDatabaseIntegrationTest {
     public void whenCreatingUser_thenCreated() {
         User user = new User();
         user.setId(101);
-        user.setFirstName("John");
-        user.setLastName("Doe");
+        user.setFirst_name("John");
+        user.setLast_name("Doe");
         user.setEmail("johndoe@example.com");
         user.setAge(29);
         user = userRepository.save(user);

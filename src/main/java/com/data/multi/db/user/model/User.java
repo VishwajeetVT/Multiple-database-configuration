@@ -9,12 +9,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "User")
+@Table(name = "users", schema = "public")
 public class User {
     @Id
     private long id;
-    private String firstName;
-    private String lastName;
+    private String first_name;
+    private String last_name;
     private String email;
     private int age;
 }
