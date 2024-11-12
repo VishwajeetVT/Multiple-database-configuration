@@ -11,6 +11,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 
+import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -26,8 +27,8 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void test_get_all_product(RequestSpecification spec) {
-        spec
+    public void test_get_all_product() {
+        given()
                 .when()
                 .get("/product/all")
                 .then()
