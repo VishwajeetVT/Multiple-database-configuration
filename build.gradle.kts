@@ -32,7 +32,7 @@ dependencies {
 	runtimeOnly("org.postgresql:postgresql")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testCompileOnly("io.rest-assured:rest-assured:5.5.0")
+	testImplementation("io.rest-assured:rest-assured:5.5.0")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 
