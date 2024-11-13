@@ -1,6 +1,6 @@
 name: Multiple-database-configuration CI/CD
 
-On: [push, pull_request]
+on: [push, pull_request]
 
 jobs:
   test:
