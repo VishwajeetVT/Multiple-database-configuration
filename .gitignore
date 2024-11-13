@@ -1,3 +1,4 @@
+.user.mk
 HELP.md
 .gradle
 build/
