@@ -55,7 +55,7 @@ jobs:
           MYSQL_URL: ${{ secrets.MYSQL_URL }}
           MYSQL_USER: ${{ secrets.MYSQL_USER }}
           MYSQL_PASSWORD: ${{ secrets.MYSQL_ROOT_PASSWORD }}
-          POSTGRES_URL: ${{ secrets.MYSQL_URL }}
+          POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
         run: ./gradlew test --no-daemon
