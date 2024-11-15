@@ -1,6 +1,7 @@
 package com.data.multi.db.configuration;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -50,6 +51,16 @@ public class PersistenceUserConfiguration {
     public PlatformTransactionManager userTransactionManager(
             @Qualifier("userEntityManager") EntityManagerFactory userEntityManager) {
         return new JpaTransactionManager(userEntityManager);
+    }
+
+    @Primary
+    @Bean
+    public Flyway userFlyway(@Qualifier("userDataSource") DataSource userDataSource) {
+        return Flyway.configure()
+                .dataSource(userDataSource)
+                .locations("classpath:db/migration/user")
+                .baselineOnMigrate(true)
+                .load();
     }
 }
 

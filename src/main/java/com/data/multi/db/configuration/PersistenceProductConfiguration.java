@@ -1,6 +1,7 @@
 package com.data.multi.db.configuration;
 
 import jakarta.persistence.EntityManagerFactory;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -45,5 +46,14 @@ public class PersistenceProductConfiguration {
     public PlatformTransactionManager productTransactionManager(
             @Qualifier("productEntityManager") EntityManagerFactory productEntityManager) {
         return new JpaTransactionManager(productEntityManager);
+    }
+
+    @Bean
+    public Flyway productFlyway(@Qualifier("productDataSource") DataSource productDataSource) {
+        return Flyway.configure()
+                .dataSource(productDataSource)
+                .locations("classpath:db/migration/product")
+                .baselineOnMigrate(true)
+                .load();
     }
 }
