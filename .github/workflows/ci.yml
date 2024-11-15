@@ -14,7 +14,7 @@ jobs:
           MYSQL_DATABASE: productdb
         ports:
           - 3306:3306
-        options:
+        options: >
           --health-cmd "mysqladmin ping --silent" 
           --health-interval=10s 
           --health-timeout=5s 
@@ -28,25 +28,13 @@ jobs:
           POSTGRES_DB: mydatabase
         ports:
           - 5432:5432
-        options:
+        options: >
           --health-cmd "pg_isready -U postgres" 
           --health-interval=10s 
           --health-timeout=5s 
           --health-retries=3
 
     steps:
-      - name: Migrate User Database
-        run: |
-          ./gradlew flywayMigrate -Pflyway.datasource=spring.datasource.url \
-                                  -Pflyway.user=spring.datasource.username \
-                                  -Pflyway.password=spring.datasource.password
-
-      - name: Migrate Product Database
-        run: |
-         ./gradlew flywayMigrate -Pflyway.datasource=spring.product.datasource.url \
-                                 -Pflyway.user=spring.product.datasource.username \
-                                 -Pflyway.password=spring.product.datasource.password
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -62,9 +50,20 @@ jobs:
       - name: Wait for Databases to be Ready
         run: sleep 15
 
+      - name: Migrate User Database
+        run: |
+          ./gradlew flywayMigrate -Pflyway.datasource=${{ secrets.DATABASE_URL }} \
+                                  -Pflyway.user=${{ secrets.DATABASE_USER }} \
+                                  -Pflyway.password=${{ secrets.DATABASE_PASSWORD }}
+
+      - name: Migrate Product Database
+        run: |
+          ./gradlew flywayMigrate -Pflyway.datasource=${{ secrets.PRODUCT_DATABASE_URL }} \
+                                  -Pflyway.user=${{ secrets.PRODUCT_DATABASE_USER }} \
+                                  -Pflyway.password=${{ secrets.PRODUCT_DATABASE_PASSWORD }}
+
       - name: Build with Gradle
         run: ./gradlew build
-
 
       - name: Run tests
         run: ./gradlew test --no-daemon
