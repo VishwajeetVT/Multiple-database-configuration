@@ -35,6 +35,18 @@ jobs:
           --health-retries=3
 
     steps:
+      - name: Migrate User Database
+        run: |
+          ./gradlew flywayMigrate -Pflyway.datasource=spring.datasource.url \
+                                  -Pflyway.user=spring.datasource.username \
+                                  -Pflyway.password=spring.datasource.password
+
+      - name: Migrate Product Database
+        run: |
+         ./gradlew flywayMigrate -Pflyway.datasource=spring.product.datasource.url \
+                                 -Pflyway.user=spring.product.datasource.username \
+                                 -Pflyway.password=spring.product.datasource.password
+
       - name: Checkout code
         uses: actions/checkout@v2
 
